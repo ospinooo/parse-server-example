@@ -6,6 +6,10 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
+// Get all enviroment variables
+var dotenv = require('dotenv');
+dotenv.config();
+
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -40,16 +44,11 @@ app.get('/', function (req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub! AFTER COMMIT');
 });
 
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
-app.get('/test', function (req, res) {
-  res.sendFile(path.join(__dirname, '/public/test.html'));
-});
-
 var port = process.env.PORT || 1337;
+
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function () {
-  console.log('parse-server-example running on port ' + port + '.');
+  console.log('Api-Parse server running on port ' + port + '.');
 });
 
 // This will enable the Live Query real-time server
